@@ -57,7 +57,8 @@ public class Shape {
 	 * s + z * v where s and d are both a vector<br>
 	 *
 	 * This functions finds the scalars "t" and "z" so that the equation of the corresponding line function returns the point of intersection.<br>
-	 * Undefined behaviour if the vectors d and v are linear dependent!<br>
+	 * if the vectors are linear dependent and overlapping the resulting scalars are NaN. If they are not on top of each other the values<br>
+	 * are -Infinity or Infinity.<br>
 	 *
 	 * @param px x - start coordinate of first line
 	 * @param py y - start coordinate of first line
