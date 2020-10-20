@@ -1,4 +1,4 @@
-## Shape intersection
+## Shapes
 
 Creating a shape
 ```java
