@@ -1,6 +1,6 @@
-## Shapes
+# Shapes
 
-Creating a shape
+## Creating a shape
 ```java
 Shape shape = new Shape();
 shape.addPoint(-0.5f, -0.5f);
@@ -16,7 +16,7 @@ the point is outside of the shape. Otherwise the shape contains the point.
 boolean inside = shape.contains(0.5f, 0.2f);
 ```
 
-Checks whether two shapes intersect.
+## Check whether two shapes intersect
 
 First checks whether the bounding boxes collide using AABB collision detection.
 After that it checks whether one of the shapes contains a single point of the other shape. Lastly it checks intersections of the boundaries.
