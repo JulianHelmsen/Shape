@@ -51,13 +51,13 @@ public class Shape {
 	}
 
 	/**
-	 * First line is defined as
-	 * p + t * d where p and d are both a vector
-	 * The second line is defined as
-	 * s + z * v where s and d are both a vector
+	 * First line is defined as<br>
+	 * p + t * d where p and d are both a vector<br>
+	 * The second line is defined as<br>
+	 * s + z * v where s and d are both a vector<br>
 	 *
-	 * This functions finds the scalars "t" and "z" so that the equation of the corresponding line function returns the point of intersection.
-	 * Undefined behaviour if the vectors d and v are linear dependent!
+	 * This functions finds the scalars "t" and "z" so that the equation of the corresponding line function returns the point of intersection.<br>
+	 * Undefined behaviour if the vectors d and v are linear dependent!<br>
 	 *
 	 * @param px x - start coordinate of first line
 	 * @param py y - start coordinate of first line
