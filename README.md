@@ -1,5 +1,7 @@
 # Shapes
 
+![alt text](https://github.com/JulianHelmsen/Shape/blob/master/screenshots/image.png?raw=true)
+
 ## Creating a shape
 ```java
 Shape shape = new Shape();
