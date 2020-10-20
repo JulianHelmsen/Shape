@@ -51,6 +51,14 @@ public class Shape {
 	}
 
 	/**
+	 * First line is defined as
+	 * p + t * d where p and d are both a vector
+	 * The second line is defined as
+	 * s + z * v where s and d are both a vector
+	 *
+	 * This functions finds the scalars "t" and "z" so that the equation of the corresponding line function returns the point of intersection.
+	 * Undefined behaviour if the vectors d and v are linear dependent!
+	 *
 	 * @param px x - start coordinate of first line
 	 * @param py y - start coordinate of first line
 	 * @param dx x direction of first line
@@ -60,7 +68,7 @@ public class Shape {
 	 * @param vx x direction of second line
 	 * @param vy y direction of second line
 	 * @param result the tuple of scalars
-	 * @return the result variable wich contains the scalars (result.x is the scalar of the first vector and result.y of the second vector)
+	 * @return the result variable wich contains the scalars (result.x stores the scalar t and result.y stores the scalar z) 
 	 */
 	private static Point getLineIntersectionScalars(float px, float py, float dx, float dy, float sx, float sy, float vx, float vy, Point result) {
 		final float dxDdy = dx / dy;
