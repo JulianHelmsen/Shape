@@ -25,7 +25,6 @@ public class Shape {
 	private float minY = Float.MAX_VALUE;
 	private float maxY = Float.MIN_VALUE;
 
-	public Shape() {}
 
 	public void addPoint(float x, float y) {
 		this.corners.add(new Point(x, y));
@@ -51,14 +50,70 @@ public class Shape {
 		return this.corners;
 	}
 
-	public static Point doLinesIntersect(float px, float py, float dx, float dy, float sx, float sy, float vx, float vy, Point result) {
+	/**
+	 * @param px x - start coordinate of first line
+	 * @param py y - start coordinate of first line
+	 * @param dx x direction of first line
+	 * @param dy y direction of first line
+	 * @param sx x - start coordinate of second line
+	 * @param sy y - start coordinate of second line
+	 * @param vx x direction of second line
+	 * @param vy y direction of second line
+	 * @param result the tuple of scalars
+	 * @return the result variable wich contains the scalars (result.x is the scalar of the first vector and result.y of the second vector)
+	 */
+	private static Point getLineIntersectionScalars(float px, float py, float dx, float dy, float sx, float sy, float vx, float vy, Point result) {
 		final float dxDdy = dx / dy;
 		final float z = (px - sx + (sy - py) * dxDdy) / (vx - vy * dxDdy);
 		final float t = (sy - py + z * vy) / dy;
 		
-		result.x = z;
-		result.y = t;
+		result.x = t;
+		result.y = z;
 		return result;
+	}
+
+	public boolean intersects(Shape other) {
+		if(this.corners.size() == 0 || other.corners.size() == 0)
+			return false;
+		// check aabb
+		if(this.maxX < other.minX || other.maxX < this.minX || this.maxY < other.minY || other.maxY < this.minY)
+			return false;
+
+		return intersectsReverse(other) || other.intersectsReverse(this);
+	}
+
+	public boolean intersectsReverse(Shape other) {
+		// check if a single point is inside this shape
+		Point oFirst = other.corners.get(0);
+		if(this.contains(oFirst.x, oFirst.y))
+			return true;
+		// check intersections
+		Point res = new Point(0.0f, 0.0f);
+
+		Point prev = this.corners.get(this.corners.size() - 1);
+		for(int i = 0; i < this.corners.size(); i++) {
+			Point current = this.corners.get(i);
+			float mdx = current.x - prev.x;
+			float mdy = current.y - prev.y;
+
+			Point oprev = other.corners.get(other.corners.size() - 1);
+			for(int j = 0; j < other.corners.size(); j++) {
+				Point ocurrent = other.corners.get(j);
+				float odx = ocurrent.x - oprev.x;
+				float ody = ocurrent.y - oprev.y;
+
+
+				getLineIntersectionScalars(prev.x, prev.y, mdx, mdy, oprev.x, oprev.y, odx, ody, res);
+				if(res.x >= 0.0 && res.x <= 1.0f && res.y >= 0.0f && res.y <= 1.0f)
+					return true;
+
+				oprev = ocurrent;
+			}
+
+			prev = current;
+		}
+
+		return false;
 	}
 
 	public int countCollisions(float x, float y, float xDir, float yDir) {
@@ -72,9 +127,9 @@ public class Shape {
 
 			float dx = previous.x - last.x;
 			float dy = previous.y - last.y;
-			doLinesIntersect(x, y, xDir, yDir, last.x, last.y, dx, dy, scalars);
+			getLineIntersectionScalars(x, y, xDir, yDir, last.x, last.y, dx, dy, scalars);
 
-			if(scalars.x >= 0 && scalars.x <= 1.0f && scalars.y >= 0.0f) {
+			if(scalars.y >= 0 && scalars.y <= 1.0f && scalars.x >= 0.0f) {
 				intersections++;
 			}
 		}
@@ -84,8 +139,8 @@ public class Shape {
 			
 			float dx = current.x - previous.x;
 			float dy = current.y - previous.y;
-			doLinesIntersect(x, y, xDir, yDir, previous.x, previous.y, dx, dy, scalars);
-			if(scalars.x >= 0 && scalars.x <= 1.0f && scalars.y >= 0.0f) {
+			getLineIntersectionScalars(x, y, xDir, yDir, previous.x, previous.y, dx, dy, scalars);
+			if(scalars.y >= 0 && scalars.y <= 1.0f && scalars.x >= 0.0f) {
 				intersections++;
 			}
 			

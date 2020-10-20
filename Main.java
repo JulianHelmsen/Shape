@@ -8,6 +8,7 @@ public class Main {
 
 	private static JFrame window;
 	private static Shape shape = new Shape();
+	private static Shape collisionShape = new Shape();
 	public static float mouseX = 0.0f, mouseY = 0.0f;
 
 	private static List<Shape.Point> testPoints = new ArrayList<>();
@@ -42,26 +43,10 @@ public class Main {
 				g2d.fill(this.getBounds());
 				g2d.setColor(Color.RED);
 
+				drawShape(g2d, Main.shape);
 
-				int firstX = -1;
-				int firstY = -1;
-				int prevX = -1;
-				int prevY = -1;
-				for(Shape.Point point : shape.getPoints()) {
-
-					int x = (int) point.x;
-					int y = (int) point.y;
-					g2d.fillOval(x - 3, y - 3, 6, 6);
-					if(firstX == -1) {
-						firstX = x;
-						firstY = y;
-					}else{
-						g2d.drawLine(x, y, prevX, prevY);
-					}
-					prevX = x;
-					prevY = y;
-				}
-				g2d.drawLine(firstX, firstY, prevX, prevY);
+				g2d.setColor(Color.ORANGE);
+				drawShape(g2d, collisionShape);
 				int collisions = shape.countCollisions(Main.mouseX, Main.mouseY, 0.23453f, 0.123546f);
 
 				if(shape.contains(Main.mouseX, Main.mouseY)) {
@@ -83,7 +68,36 @@ public class Main {
 				}
 
 			}
+
+			protected void drawShape(Graphics2D g2d, Shape shape) {
+				int firstX = -1;
+				int firstY = -1;
+				int prevX = -1;
+				int prevY = -1;
+				for(Shape.Point point : shape.getPoints()) {
+
+					int x = (int) point.x;
+					int y = (int) point.y;
+					g2d.fillOval(x - 3, y - 3, 6, 6);
+					if(firstX == -1) {
+						firstX = x;
+						firstY = y;
+					}else{
+						g2d.drawLine(x, y, prevX, prevY);
+					}
+					prevX = x;
+					prevY = y;
+				}
+				g2d.drawLine(firstX, firstY, prevX, prevY);
+
+			}
 		});
+
+		collisionShape.addPoint(100.0f, 300.0f);
+		collisionShape.addPoint(150.0f, 330.0f);
+		collisionShape.addPoint(160.0f, 230.0f);
+		collisionShape.addPoint(360.0f, 230.0f);
+		collisionShape.addPoint(560.0f, 400.0f);
 
 		for(int i = 0; i < 10000; i++)
 			testPoints.add(new Shape.Point((float) Math.random() * 1020, (float) Math.random() * 720));
@@ -101,5 +115,7 @@ public class Main {
 			testPoints.add(new Shape.Point(x, y));
 		}
 		window.repaint();
+
+		System.out.println("intersection: " + collisionShape.intersects(shape));
 	}
 }
