@@ -20,16 +20,28 @@ public class Shape {
 	}
 
 	private List<Point> corners = new ArrayList<Point>();
+	private float minX = Float.MAX_VALUE;
+	private float maxX = Float.MIN_VALUE;
+	private float minY = Float.MAX_VALUE;
+	private float maxY = Float.MIN_VALUE;
 
 	public Shape() {}
 
 	public void addPoint(float x, float y) {
 		this.corners.add(new Point(x, y));
+		if(x < this.minX)
+			this.minX = x;
+		if(x > this.maxX)
+			this.maxX = x;
+		if(y < this.minY)
+			this.minY = y;
+		if(y > this.maxY)
+			this.maxY = y;
 	}
 
 	public boolean contains(float x, float y) {
-		// ray casting
-		
+		if(x < this.minX || x > this.maxX || y < this.minY || y > this.maxY)
+			return false;
 		int collisions = countCollisions(x, y, 0.123123f, 0.34566345f);
 
 		return collisions % 2 != 0;
