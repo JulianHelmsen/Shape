@@ -45,9 +45,12 @@ public class Main {
 
 				drawShape(g2d, Main.shape);
 
-				g2d.setColor(Color.ORANGE);
+				if(collisionShape.intersects(shape))
+					g2d.setColor(Color.ORANGE);
+				else
+					g2d.setColor(Color.GREEN);
+
 				drawShape(g2d, collisionShape);
-				int collisions = shape.countCollisions(Main.mouseX, Main.mouseY, 0.23453f, 0.123546f);
 
 				if(shape.contains(Main.mouseX, Main.mouseY)) {
 					g2d.setColor(Color.YELLOW);
@@ -116,6 +119,5 @@ public class Main {
 		}
 		window.repaint();
 
-		System.out.println("intersection: " + collisionShape.intersects(shape));
 	}
 }
