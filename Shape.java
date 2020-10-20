@@ -87,13 +87,10 @@ public class Shape {
 		if(this.maxX < other.minX || other.maxX < this.minX || this.maxY < other.minY || other.maxY < this.minY)
 			return false;
 
-		return intersectsReverse(other) || other.intersectsReverse(this);
-	}
-
-	public boolean intersectsReverse(Shape other) {
 		// check if a single point is inside this shape
 		Point oFirst = other.corners.get(0);
-		if(this.contains(oFirst.x, oFirst.y))
+		Point mFirst = this.corners.get(0);
+		if(this.contains(oFirst.x, oFirst.y) || other.contains(mFirst.x, mFirst.y))
 			return true;
 		// check intersections
 		Point res = new Point(0.0f, 0.0f);
