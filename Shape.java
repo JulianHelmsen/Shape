@@ -123,23 +123,12 @@ public class Shape {
 
 	public int countCollisions(float x, float y, float xDir, float yDir) {
 		if(this.corners.size() == 0) return 0;
-		Point previous = this.corners.get(0);
 
 		int intersections = 0;
 		Point scalars = new Point(0.0f, 0.0f);
-		if(this.corners.size() > 1) {
-			Point last = this.corners.get(this.corners.size() - 1);
 
-			float dx = previous.x - last.x;
-			float dy = previous.y - last.y;
-			getLineIntersectionScalars(x, y, xDir, yDir, last.x, last.y, dx, dy, scalars);
-
-			if(scalars.y >= 0 && scalars.y <= 1.0f && scalars.x >= 0.0f) {
-				intersections++;
-			}
-		}
-
-		for(int i = 1; i < this.corners.size(); i++) {
+		Point previous = this.corners.get(this.corners.size() - 1);
+		for(int i = 0; i < this.corners.size(); i++) {
 			Point current = this.corners.get(i);
 			
 			float dx = current.x - previous.x;
