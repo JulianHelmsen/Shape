@@ -1,6 +1,6 @@
 # Shapes
 
-![alt text](https://github.com/JulianHelmsen/Shape/blob/master/screenshots/image.png?raw=true)
+![alt text](https://github.com/JulianHelmsen/Shape/blob/master/screenhots/image.PNG?raw=true)
 
 ## Creating a shape
 ```java
