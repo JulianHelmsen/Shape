@@ -81,6 +81,7 @@ public class Shape {
 		return result;
 	}
 
+
 	public boolean intersects(Shape other) {
 		if(this.corners.size() == 0 || other.corners.size() == 0)
 			return false;
