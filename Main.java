@@ -1,6 +1,7 @@
 import java.awt.*;
 import java.util.List;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import javax.swing.*;
 import java.awt.event.*;
 
@@ -11,7 +12,7 @@ public class Main {
 	private static Shape collisionShape = new Shape();
 	public static float mouseX = 0.0f, mouseY = 0.0f;
 
-	private static List<Shape.Point> testPoints = new ArrayList<>();
+	private static List<Shape.Point> testPoints = new LinkedList<>();
 
 	public static void main(final String[] args) {
 		window = new JFrame();
@@ -60,7 +61,9 @@ public class Main {
 				final int r = 5;
 				g2d.fillOval((int) Main.mouseX - r, (int) Main.mouseY - r, r << 1, r << 1);	
 
-				for(Shape.Point p : testPoints) {
+				Iterator<Shape.Point> it = testPoints.iterator();
+				while(it.hasNext()) {
+					Shape.Point p = it.next();
 					if(shape.contains(p.x, p.y)) {
 						g2d.setColor(Color.YELLOW);
 					}else{
@@ -76,7 +79,6 @@ public class Main {
 				Shape.Point prev = shape.getLastPoint();
 
 				for(Shape.Point point : shape.getPoints()) {
-
 					g2d.fillOval((int) point.x - 3, (int) point.y - 3, 6, 6);
 					g2d.drawLine((int) point.x, (int) point.y, (int) prev.x, (int) prev.y);
 					prev = point;
