@@ -123,7 +123,7 @@ public class Shape {
 		return false;
 	}
 
-	public int countCollisions(float x, float y, float xDir, float yDir) {
+	private int countCollisions(float x, float y, float xDir, float yDir) {
 		if(this.corners.size() == 0) return 0;
 
 		int intersections = 0;
