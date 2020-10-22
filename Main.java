@@ -73,25 +73,14 @@ public class Main {
 			}
 
 			protected void drawShape(Graphics2D g2d, Shape shape) {
-				int firstX = -1;
-				int firstY = -1;
-				int prevX = -1;
-				int prevY = -1;
+				Shape.Point prev = shape.getLastPoint();
+
 				for(Shape.Point point : shape.getPoints()) {
 
-					int x = (int) point.x;
-					int y = (int) point.y;
-					g2d.fillOval(x - 3, y - 3, 6, 6);
-					if(firstX == -1) {
-						firstX = x;
-						firstY = y;
-					}else{
-						g2d.drawLine(x, y, prevX, prevY);
-					}
-					prevX = x;
-					prevY = y;
+					g2d.fillOval((int) point.x - 3, (int) point.y - 3, 6, 6);
+					g2d.drawLine((int) point.x, (int) point.y, (int) prev.x, (int) prev.y);
+					prev = point;
 				}
-				g2d.drawLine(firstX, firstY, prevX, prevY);
 
 			}
 		});

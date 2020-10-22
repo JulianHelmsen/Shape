@@ -145,4 +145,14 @@ public class Shape {
 
 		return intersections;	
 	}
+
+	public Point getLastPoint() {
+		if(this.corners.size() == 0) return null;
+		return this.corners.get(this.corners.size() - 1);
+	}
+
+	public Point getFirstPoint() {
+		if(this.corners.size() == 0) return null;
+		return this.corners.get(0);
+	}
 }
